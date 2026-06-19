@@ -5,7 +5,7 @@ import { EventNormalizerService } from './services/event-normalizer.service';
 import { ShiftGrouperService } from './services/shift-grouper.service';
 import { IssueReconcilerService } from './services/issue-reconciler.service';
 import { HandoverGeneratorService } from './services/handover-generator.service';
-import { GroundingValidatorService } from './services/grounding-validator.service';
+import { DataQualityService } from './services/data-quality.service';
 
 @Module({
   controllers: [HandoverController],
@@ -15,7 +15,7 @@ import { GroundingValidatorService } from './services/grounding-validator.servic
     ShiftGrouperService,
     IssueReconcilerService,
     HandoverGeneratorService,
-    GroundingValidatorService,
+    DataQualityService,
   ],
 })
 export class HandoverModule {}

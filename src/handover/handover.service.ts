@@ -6,7 +6,7 @@ import { EventNormalizerService } from './services/event-normalizer.service';
 import { ShiftGrouperService } from './services/shift-grouper.service';
 import { IssueReconcilerService } from './services/issue-reconciler.service';
 import { HandoverGeneratorService } from './services/handover-generator.service';
-import { GroundingValidatorService } from './services/grounding-validator.service';
+import { DataQualityService } from './services/data-quality.service';
 
 @Injectable()
 export class HandoverService {
@@ -16,7 +16,7 @@ export class HandoverService {
     private readonly grouper: ShiftGrouperService,
     private readonly reconciler: IssueReconcilerService,
     private readonly generator: HandoverGeneratorService,
-    private readonly validator: GroundingValidatorService,
+    private readonly validator: DataQualityService,
   ) {}
 
   generate(dto: GenerateHandoverDto): HandoverResponse {
