@@ -113,6 +113,7 @@ export class IssueReconcilerService {
   private normalizeType(type: string): string {
     const aliases: Record<string, string> = {
       finance_note: 'finance',
+      no_show: 'finance',
       deposit_issue: 'deposit',
       damage_report: 'damage',
       check_in_issue: 'check_in',

@@ -76,7 +76,7 @@ export class ShiftGrouperService {
       return dateStr;
     }
 
-    return dateStr;
+    return null;
   }
 
   private getHoursInTimezone(date: Date, timezone: string): number {
