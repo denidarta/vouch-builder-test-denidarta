@@ -1,3 +1,5 @@
+export type EventStatus = 'resolved' | 'unresolved' | 'pending';
+
 export interface RawEvent {
   id: string;
   timestamp: string;
@@ -5,7 +7,7 @@ export interface RawEvent {
   room: string | null;
   guest: string | null;
   description: string;
-  status: 'resolved' | 'unresolved' | 'pending';
+  status: EventStatus;
 }
 
 export interface NightLog {
@@ -21,7 +23,7 @@ export interface NormalizedEvent {
   room: string | null;
   guest: string | null;
   description: string;
-  status: 'resolved' | 'unresolved' | 'pending';
+  status: EventStatus;
   rawText?: string;
   language?: string;
   confidence: 'high' | 'low';

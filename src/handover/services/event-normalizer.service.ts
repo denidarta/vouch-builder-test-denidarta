@@ -4,7 +4,10 @@ import {
   RawEvent,
   NightLog,
   NormalizedEvent,
+  EventStatus,
 } from '../../common/types/event.interface';
+import { EVENT_TYPE_KEYWORDS } from '../../common/constants/event-type-keywords';
+import { RESOLVED_INDICATORS, UNRESOLVED_INDICATORS } from '../../common/constants/status-indicators';
 
 @Injectable()
 export class EventNormalizerService {
@@ -162,73 +165,28 @@ export class EventNormalizerService {
 
   private classifyType(text: string): string {
     const lower = text.toLowerCase();
-    const keywords: [string, string][] = [
-      ['aircon', 'maintenance'],
-      ['compressor', 'maintenance'],
-      ['out of order', 'maintenance'],
-      ['保险箱', 'maintenance'],
-      ['safe', 'maintenance'],
-      ['leak', 'facilities'],
-      ['drip', 'facilities'],
-      ['deposit', 'deposit_issue'],
-      ['no-show', 'no_show'],
-      ['no show', 'no_show'],
-      ['wifi', 'complaint'],
-      ['noise', 'complaint'],
-      ['complain', 'complaint'],
-      ['check-in', 'check_in'],
-      ['checked in', 'check_in'],
-      ['check in', 'check_in'],
-      ['passport', 'compliance'],
-      ['immigration', 'compliance'],
-      ['护照', 'compliance'],
-      ['coffee machine', 'note'],
-      ['parcel', 'note'],
-      ['door ajar', 'note'],
-      ['not slept in', 'note'],
-    ];
 
-    for (const [keyword, type] of keywords) {
+    for (const [keyword, type] of EVENT_TYPE_KEYWORDS) {
       if (lower.includes(keyword)) return type;
     }
     return 'note';
   }
 
-  private inferStatus(text: string): 'resolved' | 'unresolved' | 'pending' {
+  private inferStatus(text: string): EventStatus {
     const lower = text.toLowerCase();
-    const resolvedIndicators = [
-      'resolved',
-      'fixed',
-      'settled',
-      'sorted',
-      'settle 了',
-      'all fine',
-      'all clear',
-    ];
-    const unresolvedIndicators = [
-      'still not',
-      'not fixed',
-      'needs',
-      'please chase',
-      'passing it on',
-      'still no',
-      'stays out of order',
-      '要尽快',
-      'not settled',
-    ];
 
-    for (const indicator of resolvedIndicators) {
+    for (const indicator of RESOLVED_INDICATORS) {
       if (lower.includes(indicator)) return 'resolved';
     }
-    for (const indicator of unresolvedIndicators) {
+    for (const indicator of UNRESOLVED_INDICATORS) {
       if (lower.includes(indicator)) return 'unresolved';
     }
     return 'pending';
   }
 
   private detectLanguage(text: string): string | undefined {
-    const cjkRange = /[一-鿿㐀-䶿]/;
-    if (cjkRange.test(text)) return 'zh';
+    const containsChineseCharacters = /[一-鿿㐀-䶿]/.test(text);
+    if (containsChineseCharacters) return 'zh';
     return undefined;
   }
 
