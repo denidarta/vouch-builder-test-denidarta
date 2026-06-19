@@ -26,5 +26,6 @@ export interface NormalizedEvent {
   status: EventStatus;
   rawText?: string;
   language?: string;
+  logDate?: string;
   confidence: 'high' | 'low';
 }

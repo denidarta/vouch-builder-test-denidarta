@@ -63,6 +63,9 @@ export class ShiftGrouperService {
     timezone: string,
   ): string | null {
     if (!event.timestamp) {
+      if (event.logDate) {
+        return this.addOneDay(event.logDate);
+      }
       return null;
     }
 

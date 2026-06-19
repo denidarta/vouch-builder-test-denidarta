@@ -85,6 +85,7 @@ export class EventNormalizerService {
         status,
         rawText: trimmed,
         ...(language && { language }),
+        logDate: log.date,
         confidence,
       });
     });
