@@ -1,4 +1,4 @@
-import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
+import { Module, MiddlewareConsumer, NestModule, RequestMethod } from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino';
 import { CommonModule } from './common/common.module';
 import { HealthModule } from './health/health.module';
@@ -8,6 +8,7 @@ import { CorrelationIdMiddleware } from './common/middleware/correlation-id.midd
 @Module({
   imports: [
     LoggerModule.forRoot({
+      forRoutes: [{ path: '*path', method: RequestMethod.ALL }],
       pinoHttp: {
         transport:
           process.env.NODE_ENV !== 'production'

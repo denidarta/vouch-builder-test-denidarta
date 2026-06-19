@@ -6,7 +6,7 @@ import {
   ValidateNested,
   IsIn,
 } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Type, Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class HotelDto {
@@ -42,6 +42,7 @@ export class EventDto {
 
   @ApiProperty({ example: '204', required: false })
   @IsOptional()
+  @Transform(({ value }) => (value != null ? String(value) : null))
   @IsString()
   room: string | null;
 
