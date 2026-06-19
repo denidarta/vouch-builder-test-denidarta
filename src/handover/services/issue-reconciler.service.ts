@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 import { NormalizedEvent } from '../../common/types/event.interface';
-import { ShiftGroup, ReconciledIssue } from '../../common/types/handover.interface';
+import {
+  ShiftGroup,
+  ReconciledIssue,
+} from '../../common/types/handover.interface';
 
 @Injectable()
 export class IssueReconcilerService {
@@ -32,7 +35,11 @@ export class IssueReconcilerService {
           status = 'newly_resolved';
         } else {
           status = 'still_open';
-          nightsOpen = this.countNightsOpen(priorEvents, priorShifts, currentShift);
+          nightsOpen = this.countNightsOpen(
+            priorEvents,
+            priorShifts,
+            currentShift,
+          );
         }
       } else {
         status = 'new_tonight';
@@ -60,7 +67,11 @@ export class IssueReconcilerService {
       const latestEvent = priorEvents[priorEvents.length - 1];
       if (latestEvent.status === 'resolved') continue;
 
-      const nightsOpen = this.countNightsOpen(priorEvents, priorShifts, currentShift);
+      const nightsOpen = this.countNightsOpen(
+        priorEvents,
+        priorShifts,
+        currentShift,
+      );
       const contradiction = this.detectContradiction(priorEvents);
 
       issues.push({
@@ -82,7 +93,8 @@ export class IssueReconcilerService {
         step: 'issue-reconciler',
         totalIssues: issues.length,
         stillOpen: issues.filter((i) => i.status === 'still_open').length,
-        newlyResolved: issues.filter((i) => i.status === 'newly_resolved').length,
+        newlyResolved: issues.filter((i) => i.status === 'newly_resolved')
+          .length,
         newTonight: issues.filter((i) => i.status === 'new_tonight').length,
         contradictions: issues.filter((i) => i.contradiction).length,
       },

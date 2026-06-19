@@ -239,7 +239,8 @@ export class EventNormalizerService {
   ): 'high' | 'low' {
     if (!room && type === 'note') return 'low';
     if (text.length < 30) return 'low';
-    if (text.includes("couldn't catch") || text.includes("I assume")) return 'low';
+    if (text.includes("couldn't catch") || text.includes('I assume'))
+      return 'low';
     return 'high';
   }
 }

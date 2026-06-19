@@ -58,7 +58,10 @@ export class ShiftGrouperService {
     };
   }
 
-  private assignToShift(event: NormalizedEvent, timezone: string): string | null {
+  private assignToShift(
+    event: NormalizedEvent,
+    timezone: string,
+  ): string | null {
     if (!event.timestamp) {
       return null;
     }

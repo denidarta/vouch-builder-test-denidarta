@@ -26,7 +26,12 @@ export class HandoverService {
     };
 
     this.logger.info(
-      { ...correlationContext, step: 'pipeline-start', eventsCount: dto.events.length, nightLogsCount: dto.nightLogs.length },
+      {
+        ...correlationContext,
+        step: 'pipeline-start',
+        eventsCount: dto.events.length,
+        nightLogsCount: dto.nightLogs.length,
+      },
       'Starting handover generation',
     );
 

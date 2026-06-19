@@ -39,7 +39,10 @@ describe('DataQualityService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         DataQualityService,
-        { provide: getLoggerToken(DataQualityService.name), useValue: mockLogger },
+        {
+          provide: getLoggerToken(DataQualityService.name),
+          useValue: mockLogger,
+        },
       ],
     }).compile();
 
@@ -56,7 +59,9 @@ describe('DataQualityService', () => {
     ];
     const handover: Handover = {
       actionRequired: [],
-      pending: [makeItem({ sourceEvents: ['evt_0026'], category: 'guest_message' })],
+      pending: [
+        makeItem({ sourceEvents: ['evt_0026'], category: 'guest_message' }),
+      ],
       resolved: [],
       fyi: [],
     };
@@ -79,7 +84,9 @@ describe('DataQualityService', () => {
       }),
     ];
     const handover: Handover = {
-      actionRequired: [makeItem({ sourceEvents: ['evt_0015'], room: null, guest: null })],
+      actionRequired: [
+        makeItem({ sourceEvents: ['evt_0015'], room: null, guest: null }),
+      ],
       pending: [],
       resolved: [],
       fyi: [],

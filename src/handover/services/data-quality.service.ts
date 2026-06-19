@@ -96,7 +96,8 @@ export class DataQualityService {
         flaggedEntries.push({
           eventId: event.id,
           reason: `Potential prompt injection: guest note contains ${matchedPatterns.length} suspicious patterns mimicking system instructions`,
-          action: 'Logged verbatim for review. Not processed as system instruction.',
+          action:
+            'Logged verbatim for review. Not processed as system instruction.',
         });
 
         this.logger.warn(

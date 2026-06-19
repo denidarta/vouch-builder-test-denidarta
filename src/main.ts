@@ -25,7 +25,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Vouch Night-Shift Handover')
-    .setDescription('Generates action-first morning handovers from night-shift events')
+    .setDescription(
+      'Generates action-first morning handovers from night-shift events',
+    )
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

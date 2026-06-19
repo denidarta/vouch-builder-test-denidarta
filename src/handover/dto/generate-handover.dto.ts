@@ -54,7 +54,10 @@ export class EventDto {
   @IsString()
   description: string;
 
-  @ApiProperty({ example: 'resolved', enum: ['resolved', 'unresolved', 'pending'] })
+  @ApiProperty({
+    example: 'resolved',
+    enum: ['resolved', 'unresolved', 'pending'],
+  })
   @IsIn(['resolved', 'unresolved', 'pending'])
   status: 'resolved' | 'unresolved' | 'pending';
 }

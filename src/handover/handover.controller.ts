@@ -9,7 +9,9 @@ export class HandoverController {
   constructor(private readonly handoverService: HandoverService) {}
 
   @Post('generate')
-  @ApiOperation({ summary: 'Generate a night-shift handover for the morning manager' })
+  @ApiOperation({
+    summary: 'Generate a night-shift handover for the morning manager',
+  })
   @ApiResponse({ status: 201, description: 'Handover generated successfully' })
   @ApiResponse({ status: 400, description: 'Invalid input data' })
   generate(@Body() dto: GenerateHandoverDto) {

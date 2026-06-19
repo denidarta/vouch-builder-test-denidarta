@@ -12,7 +12,10 @@ describe('EventNormalizerService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         EventNormalizerService,
-        { provide: getLoggerToken(EventNormalizerService.name), useValue: mockLogger },
+        {
+          provide: getLoggerToken(EventNormalizerService.name),
+          useValue: mockLogger,
+        },
       ],
     }).compile();
 
@@ -77,26 +80,38 @@ describe('EventNormalizerService', () => {
 - Someone called about wifi dropping. I couldn't catch which room.`;
 
     it('should extract room numbers from bullet entries', () => {
-      const result = service.normalize([], [{ date: '2026-05-27', content: sampleLog }]);
+      const result = service.normalize(
+        [],
+        [{ date: '2026-05-27', content: sampleLog }],
+      );
       const rooms = result.map((e) => e.room);
       expect(rooms).toContain('112');
       expect(rooms).toContain('309');
     });
 
     it('should tag Chinese text entries with language=zh', () => {
-      const result = service.normalize([], [{ date: '2026-05-27', content: sampleLog }]);
+      const result = service.normalize(
+        [],
+        [{ date: '2026-05-27', content: sampleLog }],
+      );
       const zhEntries = result.filter((e) => e.language === 'zh');
       expect(zhEntries.length).toBeGreaterThanOrEqual(1);
     });
 
     it('should assign low confidence to entries with missing room', () => {
-      const result = service.normalize([], [{ date: '2026-05-27', content: sampleLog }]);
+      const result = service.normalize(
+        [],
+        [{ date: '2026-05-27', content: sampleLog }],
+      );
       const wifiEntry = result.find((e) => e.description.includes('wifi'));
       expect(wifiEntry?.confidence).toBe('low');
     });
 
     it('should classify types by keywords', () => {
-      const result = service.normalize([], [{ date: '2026-05-27', content: sampleLog }]);
+      const result = service.normalize(
+        [],
+        [{ date: '2026-05-27', content: sampleLog }],
+      );
       const aircon = result.find((e) => e.description.includes('aircon'));
       expect(aircon?.type).toBe('maintenance');
       const deposit = result.find((e) => e.description.includes('deposit'));
@@ -104,7 +119,10 @@ describe('EventNormalizerService', () => {
     });
 
     it('should assign source=night_log and synthetic IDs', () => {
-      const result = service.normalize([], [{ date: '2026-05-27', content: sampleLog }]);
+      const result = service.normalize(
+        [],
+        [{ date: '2026-05-27', content: sampleLog }],
+      );
       result.forEach((e) => {
         expect(e.source).toBe('night_log');
         expect(e.id).toMatch(/^log_\d{4}$/);

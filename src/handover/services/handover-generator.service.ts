@@ -73,9 +73,7 @@ export class HandoverGeneratorService {
     if (issue.timeline.length > 1) {
       parts.push(
         'Timeline: ' +
-          issue.timeline
-            .map((t) => `${t.date}: ${t.summary}`)
-            .join(' → '),
+          issue.timeline.map((t) => `${t.date}: ${t.summary}`).join(' → '),
       );
     }
 
