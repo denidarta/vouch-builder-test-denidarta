@@ -7,7 +7,10 @@ import {
   EventStatus,
 } from '../../common/types/event.interface';
 import { EVENT_TYPE_KEYWORDS } from '../../common/constants/event-type-keywords';
-import { RESOLVED_INDICATORS, UNRESOLVED_INDICATORS } from '../../common/constants/status-indicators';
+import {
+  RESOLVED_INDICATORS,
+  UNRESOLVED_INDICATORS,
+} from '../../common/constants/status-indicators';
 
 @Injectable()
 export class EventNormalizerService {

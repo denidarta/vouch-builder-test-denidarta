@@ -26,7 +26,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     response.status(status).json({
       statusCode: status,
-      message: typeof message === 'string' ? message : (message as any).message,
+      message:
+        typeof message === 'string'
+          ? message
+          : (message as Record<string, unknown>).message,
       correlationId: request.headers['x-request-id'],
       timestamp: new Date().toISOString(),
       path: request.url,

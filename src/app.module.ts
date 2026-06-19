@@ -1,4 +1,9 @@
-import { Module, MiddlewareConsumer, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  Module,
+  MiddlewareConsumer,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino';
 import { CommonModule } from './common/common.module';
 import { HealthModule } from './health/health.module';
@@ -16,12 +21,18 @@ import { CorrelationIdMiddleware } from './common/middleware/correlation-id.midd
             : undefined,
         autoLogging: true,
         serializers: {
-          req: (req) => ({
+          req: (req: {
+            method: string;
+            url: string;
+            headers: Record<string, string>;
+          }) => ({
             method: req.method,
             url: req.url,
             correlationId: req.headers['x-request-id'],
           }),
-          res: (res) => ({ statusCode: res.statusCode }),
+          res: (res: { statusCode: number }) => ({
+            statusCode: res.statusCode,
+          }),
         },
       },
     }),

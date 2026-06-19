@@ -26,7 +26,11 @@ export class DataQualityService {
     private readonly logger: PinoLogger,
   ) {}
 
-  validate(handover: Handover, allEvents: NormalizedEvent[], issues: ReconciledIssue[]): DataQuality {
+  validate(
+    handover: Handover,
+    allEvents: NormalizedEvent[],
+    issues: ReconciledIssue[],
+  ): DataQuality {
     const eventIds = new Set(allEvents.map((e) => e.id));
     const warnings: DataQualityWarning[] = [];
     const flaggedEntries: FlaggedEntry[] = [];

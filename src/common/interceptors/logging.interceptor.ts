@@ -11,8 +11,12 @@ import { PinoLogger } from 'nestjs-pino';
 export class LoggingInterceptor implements NestInterceptor {
   constructor(private readonly logger: PinoLogger) {}
 
-  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const request = context.switchToHttp().getRequest();
+  intercept(context: ExecutionContext, next: CallHandler): Observable<unknown> {
+    const request = context.switchToHttp().getRequest<{
+      method: string;
+      url: string;
+      headers: Record<string, string>;
+    }>();
     const { method, url } = request;
     const correlationId = request.headers['x-request-id'];
     const start = Date.now();
