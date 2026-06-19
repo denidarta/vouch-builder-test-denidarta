@@ -141,6 +141,7 @@ export class EventNormalizerService {
       /room\s*(\d{3})/i,
       /\b(\d{3})\s+(?:aircon|leak|deposit|safe|保险箱)/i,
       /^(\d{3})\s*[—–-]/,
+      /^(\d{3})\b/,
       /(\d{3})\s*房/,
     ];
 
