@@ -47,7 +47,7 @@ export class HandoverService {
 
     const handover = this.generator.generate(issues);
 
-    const dataQuality = this.validator.validate(handover, normalized);
+    const dataQuality = this.validator.validate(handover, normalized, issues);
 
     this.logger.info(
       { ...correlationContext, step: 'pipeline-complete' },

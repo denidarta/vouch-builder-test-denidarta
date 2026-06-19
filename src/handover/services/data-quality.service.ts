@@ -7,6 +7,7 @@ import {
   DataQualityWarning,
   FlaggedEntry,
   IncompleteEntry,
+  ReconciledIssue,
 } from '../../common/types/handover.interface';
 
 const INJECTION_PATTERNS = [
@@ -25,13 +26,14 @@ export class DataQualityService {
     private readonly logger: PinoLogger,
   ) {}
 
-  validate(handover: Handover, allEvents: NormalizedEvent[]): DataQuality {
+  validate(handover: Handover, allEvents: NormalizedEvent[], issues: ReconciledIssue[]): DataQuality {
     const eventIds = new Set(allEvents.map((e) => e.id));
     const warnings: DataQualityWarning[] = [];
     const flaggedEntries: FlaggedEntry[] = [];
     const incompleteEntries: IncompleteEntry[] = [];
 
     this.checkCitationIntegrity(handover, eventIds, warnings);
+    this.checkContradictions(issues, warnings);
     this.checkPromptInjection(allEvents, flaggedEntries);
     this.checkIncompleteEntries(allEvents, incompleteEntries);
 
@@ -109,6 +111,20 @@ export class DataQualityService {
           'Prompt injection attempt detected',
         );
       }
+    }
+  }
+
+  private checkContradictions(
+    issues: ReconciledIssue[],
+    warnings: DataQualityWarning[],
+  ) {
+    for (const issue of issues) {
+      if (!issue.contradiction) continue;
+      warnings.push({
+        type: 'contradiction',
+        description: `${issue.room ? 'Room ' + issue.room : issue.category}: ${issue.contradiction}`,
+        relatedEvents: issue.sourceEvents,
+      });
     }
   }
 

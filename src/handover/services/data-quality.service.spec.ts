@@ -66,7 +66,7 @@ describe('DataQualityService', () => {
       fyi: [],
     };
 
-    const result = service.validate(handover, events);
+    const result = service.validate(handover, events, []);
 
     expect(result.flaggedEntries.length).toBeGreaterThanOrEqual(1);
     expect(result.flaggedEntries[0].reason).toContain('injection');
@@ -92,7 +92,7 @@ describe('DataQualityService', () => {
       fyi: [],
     };
 
-    const result = service.validate(handover, events);
+    const result = service.validate(handover, events, []);
 
     expect(result.incompleteEntries.length).toBeGreaterThanOrEqual(1);
     expect(result.incompleteEntries[0].missing).toContain('room');
@@ -107,7 +107,7 @@ describe('DataQualityService', () => {
       fyi: [],
     };
 
-    const result = service.validate(handover, events);
+    const result = service.validate(handover, events, []);
 
     expect(result.warnings.length).toBeGreaterThanOrEqual(1);
     expect(result.warnings[0].description).toContain('evt_999');
