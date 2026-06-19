@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getLoggerToken } from 'nestjs-pino';
-import { GroundingValidatorService } from './grounding-validator.service';
+import { DataQualityService } from './data-quality.service';
 import { NormalizedEvent } from '../../common/types/event.interface';
 import { Handover, HandoverItem } from '../../common/types/handover.interface';
 
@@ -32,18 +32,18 @@ const makeEvent = (overrides: Partial<NormalizedEvent>): NormalizedEvent => ({
   ...overrides,
 });
 
-describe('GroundingValidatorService', () => {
-  let service: GroundingValidatorService;
+describe('DataQualityService', () => {
+  let service: DataQualityService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        GroundingValidatorService,
-        { provide: getLoggerToken(GroundingValidatorService.name), useValue: mockLogger },
+        DataQualityService,
+        { provide: getLoggerToken(DataQualityService.name), useValue: mockLogger },
       ],
     }).compile();
 
-    service = module.get(GroundingValidatorService);
+    service = module.get(DataQualityService);
   });
 
   it('should detect prompt injection in guest_message events', () => {

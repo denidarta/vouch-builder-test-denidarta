@@ -19,9 +19,9 @@ const INJECTION_PATTERNS = [
 ];
 
 @Injectable()
-export class GroundingValidatorService {
+export class DataQualityService {
   constructor(
-    @InjectPinoLogger(GroundingValidatorService.name)
+    @InjectPinoLogger(DataQualityService.name)
     private readonly logger: PinoLogger,
   ) {}
 
@@ -37,7 +37,7 @@ export class GroundingValidatorService {
 
     this.logger.info(
       {
-        step: 'grounding-validator',
+        step: 'data-quality',
         warnings: warnings.length,
         flagged: flaggedEntries.length,
         incomplete: incompleteEntries.length,
@@ -71,7 +71,7 @@ export class GroundingValidatorService {
 
         this.logger.warn(
           {
-            step: 'grounding-validator',
+            step: 'data-quality',
             missingIds,
             itemSummary: item.summary.substring(0, 60),
           },
@@ -101,7 +101,7 @@ export class GroundingValidatorService {
 
         this.logger.warn(
           {
-            step: 'grounding-validator',
+            step: 'data-quality',
             eventId: event.id,
             patternsMatched: matchedPatterns.length,
           },
